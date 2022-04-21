@@ -23,6 +23,7 @@ public class UserInterface
     }
 
     void orderList(){
+        System.out.println("\nPIZZA ORDERS:");
         for (int i = 0; i < pizzaOrderList.size(); i++) {
             System.out.println(pizzaOrderList.get(i).getName());
         }
@@ -30,7 +31,7 @@ public class UserInterface
 
     void newOrder(ArrayList<Pizza> pizzaList){
         showMenu(pizzaList);
-        System.out.println("Enter order: ");
+        System.out.print("Enter order: ");
         int pizzaNum = in.nextInt();
 
         addPizzaToOrderList(pizzaNum, pizzaList);
@@ -51,7 +52,7 @@ public class UserInterface
 
 
     void options(ArrayList<Pizza> pizzaList){
-        System.out.println("\n1) Order Pizza\n2) Delete order\n3) View orders: ");
+        System.out.print("\n1) Order Pizza\n2) Delete order\n3) View orders\n: ");
         int input = in.nextInt();
 
         switch (input){
