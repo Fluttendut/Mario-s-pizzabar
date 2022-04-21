@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Menu
 {
 
@@ -11,7 +14,12 @@ public class Menu
     private Pizza pizza7 = new Pizza("Silvia", 7,61,new String[]{"tomatsouce", "ost", "pepperoni", "rød peber", "løg", "oregano"});
     private Pizza pizza8 = new Pizza("Victoria", 8,61,new String[]{"tomatsouce", "ost", "skinke", "ananas","champignon", "løg","oregano"});
 
+    private ArrayList<Pizza> pizzas = new ArrayList<>();
+
+    void pizzaList(){
+        Collections.addAll(pizzas, pizza1,pizza2,pizza3,pizza4,pizza5,pizza6,pizza7,pizza8);
 
 
+    }
 
 }

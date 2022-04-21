@@ -16,4 +16,19 @@ public class Pizza
 
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String[] getIngredients() {
+        return ingredients;
+    }
 }
