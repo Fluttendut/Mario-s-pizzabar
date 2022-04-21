@@ -19,7 +19,9 @@ public class Menu
     void pizzaList(){
         Collections.addAll(pizzas, pizza1,pizza2,pizza3,pizza4,pizza5,pizza6,pizza7,pizza8);
 
-
     }
 
+    public ArrayList<Pizza> getPizzas() {
+        return pizzas;
+    }
 }
