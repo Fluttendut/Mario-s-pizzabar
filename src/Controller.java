@@ -4,6 +4,7 @@ public class Controller
 {
     private UserInterface ui = new UserInterface();
     private Menu menu = new Menu();
+    private boolean isRunning=true;
 
 
     public static void main(String[] args)
@@ -26,8 +27,13 @@ public class Controller
          */
     }
 
-    void go(){
+    void go() {
         menu.pizzaList();
-        ui.showMenu(menu.getPizzas());
+
+        while (isRunning) {
+            ui.options(menu.getPizzas());
+        }
     }
+
+
 }
