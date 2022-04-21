@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserInterface
@@ -10,12 +11,19 @@ public class UserInterface
     void showMenu(ArrayList<Pizza> pizzaList){
 
         for (int i = 0; i < pizzaList.size(); i++) {
-            System.out.println(pizzaList.get(i).getNumber() + " " + pizzaList.get(i).getName());
+            System.out.println("#" + pizzaList.get(i).getNumber() + " "
+                    + pizzaList.get(i).getName() + " "
+                    + Arrays.toString(pizzaList.get(i).getIngredients()) + " "
+                    + pizzaList.get(i).getPrice() + "kr.");
         }
 
     }
     void deleteOrder(){
         orderList();
+        System.out.print("Enter the order which you would like to remove: ");
+        int pizzaNum = in.nextInt();
+
+        removePizzaFromOrderList(pizzaNum, pizzaOrderList);
     }
 
     void viewOrder(){
@@ -25,7 +33,7 @@ public class UserInterface
     void orderList(){
         System.out.println("\nPIZZA ORDERS:");
         for (int i = 0; i < pizzaOrderList.size(); i++) {
-            System.out.println(pizzaOrderList.get(i).getName());
+            System.out.println("#" + pizzaOrderList.get(i).getNumber() + " " + pizzaOrderList.get(i).getName());
         }
     }
 
@@ -44,6 +52,16 @@ public class UserInterface
         for (int i = 0; i < pizzaList.size(); i++) {
             if (pizzaNum == pizzaList.get(i).getNumber()){
                 pizzaOrderList.add(pizzaList.get(i));
+            }
+
+        }
+
+    }
+    void removePizzaFromOrderList( int pizzaNum, ArrayList<Pizza> pizzaList){
+
+        for (int i = 0; i < pizzaList.size(); i++) {
+            if (pizzaNum == pizzaList.get(i).getNumber()){
+                pizzaOrderList.remove(pizzaList.get(i));
             }
 
         }
