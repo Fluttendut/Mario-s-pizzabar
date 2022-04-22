@@ -15,26 +15,13 @@ public class Controller
 
         new Controller().go();
 
-        /*
-    ArrayList<Pizza> pizzas = new ArrayList<>();
-    Pizza pizza1 = new Pizza("Magaritta", 1, 69.99, new String[]{"Tomatoes", "Cheese", "Oregano"});
-    Pizza pizza2 = new Pizza("Vesuvio", 2,57,new String[]{"tomatsouce", "ost", "skinke", "oregano"});
-    pizzas.add(pizza1);
-    pizzas.add(pizza2);
-
-
-    //ikke færdig
-    System.out.println(pizza1);
-    System.out.println(pizzas);
-
-         */
     }
 
     void go() {
         menu.pizzaList();
 
         while (isRunning) {
-            options(menu.getPizzas());
+           isRunning = options(menu.getPizzas());
         }
     }
 
@@ -49,7 +36,7 @@ public class Controller
     void orderList(){
        ui.printOrderList();
         for (int i = 0; i < pizzaOrderList.size(); i++) {
-           // System.out.println(pizzaOrderList.get(i).getName());
+           //System.out.println(pizzaOrderList.get(i).getName());
         }
     }
 
@@ -75,7 +62,6 @@ public class Controller
     void createOrder(ArrayList<Pizza> pizzaPutInOrder, String pickUpTime, String costumerNum, String costumerName){
         Order order = new Order(pickUpTime, pizzaPutInOrder, costumerNum,costumerName);
         pizzaOrderList.add(order);
-
     }
 
 
@@ -90,16 +76,19 @@ public class Controller
     }
 
 
-    void options(ArrayList<Pizza> pizzaList){
+    boolean options(ArrayList<Pizza> pizzaList){
         ui.printOptions();
         int input = ui.returnsUserInputInt();
 
         switch (input){
-            case 1 -> newOrder(pizzaList);
-            case 2 -> deleteOrder();
-            case 3 -> viewOrder();
-        }
+            case 1:newOrder(pizzaList);
+            case 2: deleteOrder();
+            case 3: viewOrder();
+            case 4: return false;
 
-    }
+            default:
+        }
+        return true;
+        }
 
 }
