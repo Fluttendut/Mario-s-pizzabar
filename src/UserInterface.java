@@ -69,15 +69,21 @@ public class UserInterface
     }
 
 
-    void options(ArrayList<Pizza> pizzaList){
-        System.out.print("\n1) Order Pizza\n2) Delete order\n3) View orders\n: ");
+    boolean options(ArrayList<Pizza> pizzaList){
+        System.out.print("\n1) New order\n2) Delete order\n3) View orders\n Exit program \n:");
         int input = in.nextInt();
 
+
+
         switch (input){
-            case 1 -> newOrder(pizzaList);
-            case 2 -> deleteOrder();
-            case 3 -> viewOrder();
+            case 1: newOrder(pizzaList);
+            case 2: deleteOrder();
+            case 3: viewOrder();
+            case 4: return false;
+
+            default:
         }
+        return true;
 
     }
 
