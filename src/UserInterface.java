@@ -57,5 +57,9 @@ public class UserInterface {
         System.out.print("Costumer phonenumber: ");
     }
 
+    void moreThanOneOrder(){
+        System.out.print("Order more (yes/no): ");
+    }
+
 }
 
