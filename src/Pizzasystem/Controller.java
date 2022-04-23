@@ -19,6 +19,7 @@ public class Controller {
 
     void go() {
         menu.pizzaList();
+        ui.mariosPizza();
 
         while (isRunning) {
             isRunning = options(menu.getPizzas());
@@ -79,10 +80,10 @@ public class Controller {
             input = ui.returnsUserInputString();
 
             switch (input) {
-                case "yes":
+                case "yes","y":
                     moreOrders = true;
                     break;
-                case "no":
+                case "no","n":
                     moreOrders = false;
                     break;
                 default:

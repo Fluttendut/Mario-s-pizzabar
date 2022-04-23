@@ -9,6 +9,15 @@ import java.util.Scanner;
 
 public class UserInterface {
 
+    String RESET = "\033[0m";
+    String RED_DARK= "\u001b[38;5;88m";
+    String ORANGE ="\u001b[38;5;172m";
+    String BACKGROUND = "\u001b[48;5;231m";
+    String BOLD="\u001b[1m";
+    String UNDERLINE = "\u001b[4m";
+    String WHITE_BOLD = "\033[1;97m";
+
+
 
     Scanner in = new Scanner(System.in);
 
@@ -23,15 +32,21 @@ public class UserInterface {
         return userInput;
     }
 
+    void mariosPizza(){
+        System.out.println("\n"+BOLD+RED_DARK+BACKGROUND+" MARIOS PIZZABAR\n"+RESET);
+    }
 
     void showMenu(ArrayList<Pizza> pizzaList) {
 
+        System.out.println("\nMENU:");
+        System.out.println(BACKGROUND+BOLD+ORANGE +"\n  PIZZAER");
         for (int i = 0; i < pizzaList.size(); i++) {
-            System.out.println("#" + pizzaList.get(i).getNumber() + " "
-                    + pizzaList.get(i).getName() + " "
-                    + Arrays.toString(pizzaList.get(i).getIngredients()) + " "
-                    + pizzaList.get(i).getPrice() + "kr.");
+            System.out.println( BOLD + RED_DARK+"  #"+ pizzaList.get(i).getNumber() + " "
+                    + pizzaList.get(i).getName() + ": "+ RESET + BACKGROUND + RED_DARK
+                    + Arrays.toString(pizzaList.get(i).getIngredients()) + ".... " + BOLD
+                    + pizzaList.get(i).getPrice() + "kr." + RESET+ BACKGROUND);
         }
+        System.out.println("\n"+RESET);
     }
 
 
@@ -40,7 +55,7 @@ public class UserInterface {
     }
 
     void enterOrder() {
-        System.out.print("\nEnter order: ");
+        System.out.print(BOLD+"NEW ORDER"+RESET+"\nEnter order: ");
     }
 
 
@@ -49,7 +64,7 @@ public class UserInterface {
     }
 
     void costumerPickUpTime(){
-        System.out.print("Enter pick up time:");
+        System.out.print(BOLD+"\nCOSTUMER INFO"+RESET+"\nPick up time:");
 
     }
 
