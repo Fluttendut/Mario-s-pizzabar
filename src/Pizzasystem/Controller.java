@@ -2,10 +2,10 @@ package Pizzasystem;
 
 import java.util.ArrayList;
 
-//TODO tilføj sorteing,tilføj whileloop i ny ordre, skal opdateres til at fjernd ordre fra pizzaOrderList
+//TODO tilføj sortering,tilføj while loop i ny ordre, skal opdateres til at fjerne ordre fra pizzaOrderList
 public class Controller {
-    private UserInterface ui = new UserInterface();
-    private Menu menu = new Menu();
+    private final UserInterface ui = new UserInterface();
+    private final Menu menu = new Menu();
 
     private boolean isRunning = true;
     private ArrayList<Order> pizzaOrderList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Controller {
 
             ArrayList<Pizza> pizzaPutInOrder = pizzaOrderList.get(i).getPizzaPutInOrder();
 
-            for (int j = 0; j < pizzaPutInOrder.size(); j++) { //forloop for hvert [pizza], i hvert element i [order]
+            for (int j = 0; j < pizzaPutInOrder.size(); j++) { //for loop for hvert [pizza], i hvert element i [order]
                 ui.printPizzaNameAndNumber(pizzaPutInOrder, j);
             }
 
@@ -75,7 +75,7 @@ public class Controller {
 
     ArrayList<Pizza> takeOrder() {
 
-        ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Opretede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
+        ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Oprettede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
 
         boolean moreOrders = true;
         String input;
@@ -90,15 +90,9 @@ public class Controller {
             input = ui.returnsUserInputString();
 
             switch (input) {
-                case "yes", "y":
-                    moreOrders = true;
-                    break;
-                case "no", "n":
-                    moreOrders = false;
-                    break;
-                default:
-                    ui.answerNotValid();
-                    break;
+                case "yes", "y" -> moreOrders = true;
+                case "no", "n" -> moreOrders = false;
+                default -> ui.answerNotValid();
             }
         }
         return currentPizzaOrder; //Returnere kundens pizza-array
@@ -114,9 +108,9 @@ public class Controller {
     void customerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
         //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
-        for (int i = 0; i < pizzaList.size(); i++) {
-            if (pizzaNum == pizzaList.get(i).getNumber()) {
-                currentPizzaOrder.add(pizzaList.get(i));
+        for (Pizza pizza : pizzaList) { //for each pizza in pizzaList
+            if (pizzaNum == pizza.getNumber()) {
+                currentPizzaOrder.add(pizza);
             }
         }
     }
