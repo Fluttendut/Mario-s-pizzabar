@@ -1,8 +1,5 @@
 package Pizzasystem;
 
-import Pizzasystem.Pizza;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,7 +13,6 @@ public class UserInterface {
     String BOLD="\u001b[1m";
     String UNDERLINE = "\u001b[4m";
     String WHITE_BOLD = "\033[1;97m";
-
 
 
     Scanner in = new Scanner(System.in);
@@ -53,27 +49,25 @@ public class UserInterface {
     void printOptions() {
         System.out.print("\n1) Order Pizza\n2) Delete order\n3) View orders\n4) Exit program \n: ");
     }
-
     void enterOrder() {
-        System.out.print(BOLD+"NEW ORDER"+RESET+"\nEnter order: ");
+        System.out.print("Enter order: ");
     }
-
-
+    void printNewOrder(){
+        System.out.println(BOLD+"NEW ORDER"+RESET);
+    }
     void printOrderList(){
         System.out.println("\nPIZZA ORDERS:");
     }
 
-    void costumerPickUpTime(){
-        System.out.print(BOLD+"\nCOSTUMER INFO"+RESET+"\nPick up time:");
+    void customerPickUpTime(){
+        System.out.print(BOLD+"\nCUSTOMER INFO"+RESET+"\nPick up time:");
 
     }
-
-    void costumerName(){
-        System.out.print("Costumer name: ");
+    void customerName(){
+        System.out.print("Customer name: ");
     }
-
-    void costumerPhoneNumber(){
-        System.out.print("Costumer phonenumber: ");
+    void customerPhoneNumber(){
+        System.out.print("Customer phonenumber: ");
     }
 
     void moreThanOneOrder(){

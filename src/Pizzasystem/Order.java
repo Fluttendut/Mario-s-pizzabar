@@ -6,13 +6,14 @@ public class Order {
 
     private String pickUpTime;
     private ArrayList<Pizza> pizzaPutInOrder = new ArrayList<>(); //hvor mange pizzaer kunden vil have
-    private String costumerNum;
-    private String costumerName;
+    private String customerNum;
+    private String customerName;
+    private Pizza pizza;
 
 
-    public Order(String pickUpTime, ArrayList<Pizza> pizza, String costumerNum, String costumerName){
-        this.costumerName = costumerName;
-        this.costumerNum = costumerNum;
+    public Order(String pickUpTime, ArrayList<Pizza> pizza, String customerNum, String customerName){
+        this.customerName = customerName;
+        this.customerNum = customerNum;
         this.pickUpTime = pickUpTime;
         this.pizzaPutInOrder = pizza;
 
@@ -22,12 +23,12 @@ public class Order {
         return pizzaPutInOrder;
     }
 
-    public String getCostumerName() {
-        return costumerName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public String getCostumerNum() {
-        return costumerNum;
+    public String getCustomerNum() {
+        return customerNum;
     }
 
     public String getPickUpTime() {
@@ -35,4 +36,12 @@ public class Order {
     }
 
 
+    public void setPizza(Pizza pizza){
+        this.pizza = pizza;
+
+    }
+
+    public Pizza getPizza() {
+        return pizza;
+    }
 }

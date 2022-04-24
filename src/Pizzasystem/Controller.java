@@ -38,29 +38,39 @@ public class Controller {
         ui.printOrderList();
 
         for (int i = 0; i < pizzaOrderList.size(); i++) {
-            System.out.println("#" + currentPizzaOrder.get(i).getNumber() + " "
-                    + currentPizzaOrder.get(i).getName() + ", "
-                    + pizzaOrderList.get(i).getPickUpTime() + ", "
-                    + pizzaOrderList.get(i).getCostumerName() + ", "
-                    + pizzaOrderList.get(i).getCostumerNum());
+
+            ArrayList<Pizza> pizzaPutInOrder = pizzaOrderList.get(i).getPizzaPutInOrder();
+
+            for (int j = 0; j < pizzaPutInOrder.size(); j++) {
+
+                System.out.print("#" +pizzaPutInOrder.get(j).getNumber() + " "
+                        + pizzaPutInOrder.get(j).getName()+ ", ");
+
+            }
+            System.out.println( pizzaOrderList.get(i).getPickUpTime() + ", "
+                    + pizzaOrderList.get(i).getCustomerName() + ", "
+                    + pizzaOrderList.get(i).getCustomerNum());
         }
     }
 
     void newOrder(ArrayList<Pizza> pizzaList) {
         ui.showMenu(pizzaList);
+        ui.printNewOrder();
         orderSize(pizzaList);
 
         //int pizzaNum = ui.returnsUserInputInt();
        // customerPizzaOrders(pizzaNum, pizzaList);
 
-        ui.costumerPickUpTime();
+        ui.customerPickUpTime();
         String pickUpTime = ui.returnsUserInputString();
-        ui.costumerName();
+        ui.customerName();
         String customerName = ui.returnsUserInputString();
-        ui.costumerPhoneNumber();
+        ui.customerPhoneNumber();
         String customerPhoneNumber = ui.returnsUserInputString();
 
         createOrder(currentPizzaOrder, pickUpTime, customerPhoneNumber, customerName);
+
+       //currentPizzaOrder.clear();
 
     }
 
@@ -72,7 +82,7 @@ public class Controller {
 
 
         while (moreOrders) {
-            ui.enterOrder(); //Tilføj loop
+            ui.enterOrder();
             //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders)
             pizzaNum = ui.returnsUserInputInt();
             customerPizzaOrders(pizzaNum, pizzaList);
@@ -129,6 +139,8 @@ public class Controller {
                 return false;
 
             default:
+                System.out.println("Answer not valid");
+                break;
         }
         return true;
     }
