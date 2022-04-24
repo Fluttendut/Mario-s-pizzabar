@@ -19,12 +19,18 @@ public class Controller {
 
     void go() {
         menu.pizzaList();
-        ui.mariosPizza();
+        ui.mariosPizza(); //Titel
 
         while (isRunning) {
-            isRunning = options(menu.getPizzas());
+            isRunning = options();
         }
     }
+
+    ArrayList<Pizza> getPizzaListFromMenu(){
+        ArrayList<Pizza> pizzaList = menu.getPizzas();
+        return pizzaList;
+    }
+
 
     void deleteOrder() {
         orderList();
@@ -53,10 +59,12 @@ public class Controller {
         }
     }
 
-    void newOrder(ArrayList<Pizza> pizzaList) {
+    void newOrder() {
+        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
         ui.showMenu(pizzaList);
         ui.printNewOrder();
-        orderSize(pizzaList);
+        orderSize();
+
 
         //int pizzaNum = ui.returnsUserInputInt();
        // customerPizzaOrders(pizzaNum, pizzaList);
@@ -70,11 +78,13 @@ public class Controller {
 
         createOrder(currentPizzaOrder, pickUpTime, customerPhoneNumber, customerName);
 
-       //currentPizzaOrder.clear();
+        //currentPizzaOrder.clear();
 
     }
 
-    void orderSize(ArrayList<Pizza> pizzaList) {
+    void orderSize() {
+        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
+
 
         boolean moreOrders = true;
         String input;
@@ -85,7 +95,7 @@ public class Controller {
             ui.enterOrder();
             //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders)
             pizzaNum = ui.returnsUserInputInt();
-            customerPizzaOrders(pizzaNum, pizzaList);
+            customerPizzaOrders(pizzaNum);
             ui.moreThanOneOrder();
             input = ui.returnsUserInputString();
 
@@ -110,7 +120,9 @@ public class Controller {
     }
 
 
-    void customerPizzaOrders(int pizzaNum, ArrayList<Pizza> pizzaList) {
+    void customerPizzaOrders(int pizzaNum) {
+
+        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
 
         //Finder pizzaerne og tilføjer dem til en pizza liste
         for (int i = 0; i < pizzaList.size(); i++) {
@@ -121,13 +133,13 @@ public class Controller {
     }
 
 
-    boolean options(ArrayList<Pizza> pizzaList) {
+    boolean options() {
         ui.printOptions();
         int input = ui.returnsUserInputInt();
 
         switch (input) {
             case 1:
-                newOrder(pizzaList);
+                newOrder();
                 break;
             case 2:
                 deleteOrder();
