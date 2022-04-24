@@ -12,11 +12,6 @@ public class Controller {
     private ArrayList<Pizza> pizzaList = new ArrayList<>(); //Bruges til opbevaring af Pizza-listen fra Menu-klassen
 
 
-    public static void main(String[] args) {
-        new Controller().go();
-
-    }
-
     void go() {
         pizzaList = menu.getPizzas();
         ui.mariosPizza(); //Titel
@@ -26,13 +21,29 @@ public class Controller {
         }
     }
 
+    boolean options() {
+        ui.printOptions();
+        String input = ui.returnsUserInputString();
+        input.trim();
 
-    void deleteOrder() {
-        orderList();
-    }
+        switch (input) {
+            case "1":
+                newOrder();
+                break;
+            case "2":
+                deleteOrder();
+                break;
+            case "3":
+                viewOrder();
+                break;
+            case "4":
+                return false;
 
-    void viewOrder() {
-        orderList();
+            default:
+                ui.answerNotValid();
+                break;
+        }
+        return true;
     }
 
     void orderList() {
@@ -72,39 +83,47 @@ public class Controller {
 
 
     }
-
     ArrayList<Pizza> takeOrder() {
 
         ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Oprettede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
 
-        boolean moreOrders = true;
+        boolean askForPizza = true;
         String input;
         int pizzaNum;
 
-        while (moreOrders) {
+        while (askForPizza) {
             ui.enterOrder();
             //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders) ----DONE!
             pizzaNum = ui.returnsUserInputInt();
             customerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
-            ui.moreThanOneOrder();
-            input = ui.returnsUserInputString();
 
-            switch (input) {
-                case "yes", "y" -> moreOrders = true;
-                case "no", "n" -> moreOrders = false;
-                default -> ui.answerNotValid();
+            //Ny loop for at fejltjekke svaret til moreThanOnePizza()
+            //TODO loop skal nok laves om, da det er dårlig kode
+            boolean morePizza = false;
+            while(!morePizza){
+                ui.moreThanOnePizza();
+                input = ui.returnsUserInputString();
+
+                switch (input) {
+                    case "yes", "y":
+                        morePizza = true;
+                         break;
+                    case "no", "n":
+                        morePizza = true; //Hvorfor fungere det ikke uden den her
+                        askForPizza = false;
+                        break;
+                }
             }
+
+
         }
         return currentPizzaOrder; //Returnere kundens pizza-array
 
     }
-
     void createOrder(ArrayList<Pizza> pizzaPutInOrder, String pickUpTime, String costumerNum, String costumerName) {
         Order order = new Order(pickUpTime, pizzaPutInOrder, costumerNum, costumerName);
         pizzaOrderList.add(order);
     }
-
-
     void customerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
         //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
@@ -115,29 +134,12 @@ public class Controller {
         }
     }
 
+    void deleteOrder() {
+        orderList();
+    }
 
-    boolean options() {
-        ui.printOptions();
-        int input = ui.returnsUserInputInt();
-
-        switch (input) {
-            case 1:
-                newOrder();
-                break;
-            case 2:
-                deleteOrder();
-                break;
-            case 3:
-                viewOrder();
-                break;
-            case 4:
-                return false;
-
-            default:
-                ui.answerNotValid();
-                break;
-        }
-        return true;
+    void viewOrder() {
+        orderList();
     }
 
 }

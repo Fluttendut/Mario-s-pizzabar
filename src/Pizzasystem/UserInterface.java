@@ -24,7 +24,9 @@ public class UserInterface {
         return userInput;
     }
     String returnsUserInputString() {
+
         String userInput = in.nextLine();
+
         return userInput;
     }
 
@@ -70,7 +72,7 @@ public class UserInterface {
         System.out.print("Customer phonenumber: ");
     }
 
-    void moreThanOneOrder(){
+    void moreThanOnePizza(){
         System.out.print("Order more (yes/no): ");
     }
 
@@ -79,12 +81,12 @@ public class UserInterface {
     }
 
     void printPizzaNameAndNumber(ArrayList<Pizza> pizzaPutInOrder, int index ){
-        System.out.print("#" +pizzaPutInOrder.get(index).getNumber() + " "
+        System.out.print(WHITE_BOLD + "#" +pizzaPutInOrder.get(index).getNumber() + " "
                 + pizzaPutInOrder.get(index).getName()+ ", ");
     }
 
     void printCustomerInfo(ArrayList<Order> pizzaOrderList, int index){
-        System.out.println( pizzaOrderList.get(index).getPickUpTime() + ", "
+        System.out.println( "kl: "+pizzaOrderList.get(index).getPickUpTime() + ", " +RESET
                 + pizzaOrderList.get(index).getCustomerName() + ", "
                 + pizzaOrderList.get(index).getCustomerNum());
     }
