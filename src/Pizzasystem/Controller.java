@@ -1,34 +1,29 @@
 package Pizzasystem;
+
 import java.util.ArrayList;
 
 //TODO tilføj sorteing,tilføj whileloop i ny ordre, skal opdateres til at fjernd ordre fra pizzaOrderList
 public class Controller {
     private UserInterface ui = new UserInterface();
     private Menu menu = new Menu();
-    private Order order;
+
     private boolean isRunning = true;
     private ArrayList<Order> pizzaOrderList = new ArrayList<>();
-    private ArrayList<Pizza> currentPizzaOrder = new ArrayList<>();
+    private ArrayList<Pizza> pizzaList = new ArrayList<>(); //Bruges til opbevaring af Pizza-listen fra Menu-klassen
 
 
     public static void main(String[] args) {
-
         new Controller().go();
 
     }
 
     void go() {
-        menu.pizzaList();
+        pizzaList = menu.getPizzas();
         ui.mariosPizza(); //Titel
 
         while (isRunning) {
             isRunning = options();
         }
-    }
-
-    ArrayList<Pizza> getPizzaListFromMenu(){
-        ArrayList<Pizza> pizzaList = menu.getPizzas();
-        return pizzaList;
     }
 
 
@@ -47,28 +42,24 @@ public class Controller {
 
             ArrayList<Pizza> pizzaPutInOrder = pizzaOrderList.get(i).getPizzaPutInOrder();
 
-            for (int j = 0; j < pizzaPutInOrder.size(); j++) {
-
-                System.out.print("#" +pizzaPutInOrder.get(j).getNumber() + " "
-                        + pizzaPutInOrder.get(j).getName()+ ", ");
-
+            for (int j = 0; j < pizzaPutInOrder.size(); j++) { //forloop for hvert [pizza], i hvert element i [order]
+                ui.printPizzaNameAndNumber(pizzaPutInOrder, j);
             }
-            System.out.println( pizzaOrderList.get(i).getPickUpTime() + ", "
-                    + pizzaOrderList.get(i).getCustomerName() + ", "
-                    + pizzaOrderList.get(i).getCustomerNum());
+
+            ui.printCustomerInfo(pizzaOrderList, i);
         }
     }
 
     void newOrder() {
-        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
+
+        //MENU
         ui.showMenu(pizzaList);
         ui.printNewOrder();
-        orderSize();
 
+        //BESTILLING
+        ArrayList<Pizza> currentPizzaOrder = takeOrder();
 
-        //int pizzaNum = ui.returnsUserInputInt();
-       // customerPizzaOrders(pizzaNum, pizzaList);
-
+        //KUNDE INFO
         ui.customerPickUpTime();
         String pickUpTime = ui.returnsUserInputString();
         ui.customerName();
@@ -76,41 +67,41 @@ public class Controller {
         ui.customerPhoneNumber();
         String customerPhoneNumber = ui.returnsUserInputString();
 
+        //NY ORDRE OBJEKT
         createOrder(currentPizzaOrder, pickUpTime, customerPhoneNumber, customerName);
 
-        //currentPizzaOrder.clear();
 
     }
 
-    void orderSize() {
-        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
+    ArrayList<Pizza> takeOrder() {
 
+        ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Opretede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
 
         boolean moreOrders = true;
         String input;
         int pizzaNum;
 
-
         while (moreOrders) {
             ui.enterOrder();
-            //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders)
+            //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders) ----DONE!
             pizzaNum = ui.returnsUserInputInt();
-            customerPizzaOrders(pizzaNum);
+            customerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
             ui.moreThanOneOrder();
             input = ui.returnsUserInputString();
 
             switch (input) {
-                case "yes","y":
+                case "yes", "y":
                     moreOrders = true;
                     break;
-                case "no","n":
+                case "no", "n":
                     moreOrders = false;
                     break;
                 default:
-                    System.out.println("Answer not valid");
+                    ui.answerNotValid();
                     break;
             }
         }
+        return currentPizzaOrder; //Returnere kundens pizza-array
 
     }
 
@@ -120,11 +111,9 @@ public class Controller {
     }
 
 
-    void customerPizzaOrders(int pizzaNum) {
+    void customerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
-        ArrayList<Pizza> pizzaList = getPizzaListFromMenu();
-
-        //Finder pizzaerne og tilføjer dem til en pizza liste
+        //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
         for (int i = 0; i < pizzaList.size(); i++) {
             if (pizzaNum == pizzaList.get(i).getNumber()) {
                 currentPizzaOrder.add(pizzaList.get(i));
@@ -151,7 +140,7 @@ public class Controller {
                 return false;
 
             default:
-                System.out.println("Answer not valid");
+                ui.answerNotValid();
                 break;
         }
         return true;

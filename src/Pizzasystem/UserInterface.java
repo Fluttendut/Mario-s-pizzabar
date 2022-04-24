@@ -74,5 +74,20 @@ public class UserInterface {
         System.out.print("Order more (yes/no): ");
     }
 
+    void answerNotValid(){
+        System.out.println("Answer not valid");
+    }
+
+    void printPizzaNameAndNumber(ArrayList<Pizza> pizzaPutInOrder, int index ){
+        System.out.print("#" +pizzaPutInOrder.get(index).getNumber() + " "
+                + pizzaPutInOrder.get(index).getName()+ ", ");
+    }
+
+    void printCustomerInfo(ArrayList<Order> pizzaOrderList, int index){
+        System.out.println( pizzaOrderList.get(index).getPickUpTime() + ", "
+                + pizzaOrderList.get(index).getCustomerName() + ", "
+                + pizzaOrderList.get(index).getCustomerNum());
+    }
+
 }
 
