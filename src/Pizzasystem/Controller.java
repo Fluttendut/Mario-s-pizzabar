@@ -2,9 +2,7 @@ package Pizzasystem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
-//TODO tilføj sortering,tilføj while loop i ny ordre, skal opdateres til at fjerne ordre fra pizzaOrderList
 public class Controller {
     private final UserInterface ui = new UserInterface();
     private final Menu menu = new Menu();
@@ -24,9 +22,11 @@ public class Controller {
     }
 
     boolean options() {
+        orderList();
         ui.printOptions();
         String input = ui.returnsUserInputString();
         input.trim();
+
 
         switch (input) {
             case "1":
@@ -36,9 +36,6 @@ public class Controller {
                 deleteOrder();
                 break;
             case "3":
-                viewOrder();
-                break;
-            case "4":
                 return false;
 
             default:
@@ -97,7 +94,6 @@ public class Controller {
 
         while (askForPizza) {
             ui.enterOrder();
-            //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders) ----DONE!
             pizzaNum = ui.returnsUserInputInt();
             addCustomerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
 
@@ -156,13 +152,4 @@ public class Controller {
         }
     }
 
-
-    void viewOrder() {
-        orderList();
-    }
-
-    void sortOrders(Order order){
-
-
-    }
 }
