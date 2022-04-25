@@ -1,6 +1,8 @@
 package Pizzasystem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 //TODO tilføj sortering,tilføj while loop i ny ordre, skal opdateres til at fjerne ordre fra pizzaOrderList
 public class Controller {
@@ -49,6 +51,8 @@ public class Controller {
     void orderList() {
         ui.printOrderList();
 
+        Collections.sort(pizzaOrderList);
+
         for (int i = 0; i < pizzaOrderList.size(); i++) {
 
             ArrayList<Pizza> pizzaPutInOrder = pizzaOrderList.get(i).getPizzaPutInOrder();
@@ -95,7 +99,7 @@ public class Controller {
             ui.enterOrder();
             //TODO; find ud af hvordan den bevarer flere ordre (fejl i customerPizzaOrders) ----DONE!
             pizzaNum = ui.returnsUserInputInt();
-            customerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
+            addCustomerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
 
             //Ny loop for at fejltjekke svaret til moreThanOnePizza()
             //TODO loop skal nok laves om, da det er dårlig kode
@@ -124,7 +128,7 @@ public class Controller {
         Order order = new Order(pickUpTime, pizzaPutInOrder, costumerNum, costumerName);
         pizzaOrderList.add(order);
     }
-    void customerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
+    void addCustomerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
         //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
         for (Pizza pizza : pizzaList) { //for each pizza in pizzaList
@@ -136,10 +140,29 @@ public class Controller {
 
     void deleteOrder() {
         orderList();
+        ui.deleteOrder();
+        String name = ui.returnsUserInputString();
+        removeCustomerPizzaOrders(name);
     }
+
+
+    void removeCustomerPizzaOrders(String customerName){
+
+        for (int i = 0; i < pizzaOrderList.size(); i++) {
+            if (customerName.equals(pizzaOrderList.get(i).getCustomerName())) {
+                pizzaOrderList.remove(i);
+
+            }
+        }
+    }
+
 
     void viewOrder() {
         orderList();
     }
 
+    void sortOrders(Order order){
+
+
+    }
 }

@@ -91,5 +91,12 @@ public class UserInterface {
                 + pizzaOrderList.get(index).getCustomerNum());
     }
 
+    void deleteOrder(){
+        System.out.println("Enter customer name: ");
+    }
+
+    void nameNotFound(){
+        System.out.println("Name not found");
+    }
 }
 

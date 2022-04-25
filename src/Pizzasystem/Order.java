@@ -2,7 +2,7 @@ package Pizzasystem;
 import java.util.ArrayList;
 
 
-public class Order {
+public class Order implements Comparable{
 
     private String pickUpTime;
     private ArrayList<Pizza> pizzaPutInOrder = new ArrayList<>(); //hvor mange pizzaer kunden vil have
@@ -36,12 +36,26 @@ public class Order {
     }
 
 
-    public void setPizza(Pizza pizza){
-        this.pizza = pizza;
+    @Override
+    public int compareTo(Object o) {
+        Order order = ((Order)o);
 
-    }
+        if(pickUpTime.equalsIgnoreCase("now") && order.pickUpTime.equalsIgnoreCase("now"))
+            return 0;
+        else if(pickUpTime.equalsIgnoreCase("now"))
+            return -1;
+        else if(order.pickUpTime.equalsIgnoreCase("now"))
+            return 1;
+        else {
+            int pickUpTimeInt =  Integer.parseInt(pickUpTime);
+            int pickUpTimeIntOrder = Integer.parseInt(order.pickUpTime);
+            if (pickUpTimeInt>pickUpTimeIntOrder)
+                return 1;
+            else if (pickUpTimeInt<pickUpTimeIntOrder)
+                return -1;
+            else
+                return 0;
+        }
 
-    public Pizza getPizza() {
-        return pizza;
     }
 }
