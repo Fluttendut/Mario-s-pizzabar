@@ -37,7 +37,6 @@ public class Controller {
                 break;
             case "3":
                 return false;
-
             default:
                 ui.answerNotValid();
                 break;
@@ -84,6 +83,7 @@ public class Controller {
 
 
     }
+
     ArrayList<Pizza> takeOrder() {
 
         ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Oprettede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
@@ -95,35 +95,35 @@ public class Controller {
         while (askForPizza) {
             ui.enterOrder();
             pizzaNum = ui.returnsUserInputInt();
-            addCustomerPizzaOrders(pizzaNum, currentPizzaOrder); //Metoden modtager det tomme array, og tilføjer pizzaer til det
+
+            addCustomerPizzaOrders(pizzaNum, currentPizzaOrder);  //Metoden modtager det tomme array, og tilføjer pizzaer til det
 
             //Ny loop for at fejltjekke svaret til moreThanOnePizza()
             //TODO loop skal nok laves om, da det er dårlig kode
             boolean morePizza = false;
-            while(!morePizza){
+            while (!morePizza) {
                 ui.moreThanOnePizza();
                 input = ui.returnsUserInputString();
 
                 switch (input) {
                     case "yes", "y":
                         morePizza = true;
-                         break;
+                        break;
                     case "no", "n":
                         morePizza = true; //Hvorfor fungere det ikke uden den her
                         askForPizza = false;
                         break;
                 }
             }
-
-
         }
         return currentPizzaOrder; //Returnere kundens pizza-array
-
     }
+
     void createOrder(ArrayList<Pizza> pizzaPutInOrder, String pickUpTime, String costumerNum, String costumerName) {
         Order order = new Order(pickUpTime, pizzaPutInOrder, costumerNum, costumerName);
         pizzaOrderList.add(order);
     }
+
     void addCustomerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
         //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
@@ -141,14 +141,18 @@ public class Controller {
         removeCustomerPizzaOrders(name);
     }
 
+    void removeCustomerPizzaOrders(String customerName) {
 
-    void removeCustomerPizzaOrders(String customerName){
 
         for (int i = 0; i < pizzaOrderList.size(); i++) {
             if (customerName.equals(pizzaOrderList.get(i).getCustomerName())) {
                 pizzaOrderList.remove(i);
-
+                i=-2; //to break out of loop
             }
+            else if(i ==pizzaOrderList.size()-1)
+                ui.nameNotFound();
+
+
         }
     }
 

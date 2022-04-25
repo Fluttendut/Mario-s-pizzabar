@@ -49,7 +49,7 @@ public class UserInterface {
 
 
     void printOptions() {
-        System.out.print("\n1) Order Pizza\n2) Delete order\n3) View orders\n4) Exit program \n: ");
+        System.out.print("\n1) Order Pizza\n2) Delete order\n3) Exit program \n: ");
     }
     void enterOrder() {
         System.out.print("Enter order: ");

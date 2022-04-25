@@ -8,7 +8,6 @@ public class Order implements Comparable{
     private ArrayList<Pizza> pizzaPutInOrder = new ArrayList<>(); //hvor mange pizzaer kunden vil have
     private String customerNum;
     private String customerName;
-    private Pizza pizza;
 
 
     public Order(String pickUpTime, ArrayList<Pizza> pizza, String customerNum, String customerName){
