@@ -9,7 +9,7 @@ public class Controller {
 
     private boolean isRunning = true;
     private ArrayList<Order> pizzaOrderList = new ArrayList<>();
-    private ArrayList<Pizza> pizzaList = new ArrayList<>(); //Bruges til opbevaring af Pizza-listen fra Menu-klassen
+    private ArrayList<Pizza> pizzaList = new ArrayList<>(); // Opbevaring af Pizzaer som hentes fra Menu-klassen
 
 
     void go() {
@@ -46,7 +46,7 @@ public class Controller {
     void orderList() {
         ui.printOrderList();
 
-        Collections.sort(pizzaOrderList);
+        Collections.sort(pizzaOrderList); //sortering med tid
 
         for (int i = 0; i < pizzaOrderList.size(); i++) {
 

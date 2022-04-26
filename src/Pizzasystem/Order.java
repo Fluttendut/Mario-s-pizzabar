@@ -37,6 +37,8 @@ public class Order implements Comparable{
 
     @Override
     public int compareTo(Object o) {
+
+        //sorterer ordrelisten ved brug af tid
         Order order = ((Order)o);
 
         if(pickUpTime.equalsIgnoreCase("now") && order.pickUpTime.equalsIgnoreCase("now"))
