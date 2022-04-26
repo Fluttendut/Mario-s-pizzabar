@@ -11,7 +11,6 @@ public class UserInterface {
     String ORANGE ="\u001b[38;5;172m";
     String BACKGROUND = "\u001b[48;5;231m";
     String BOLD="\u001b[1m";
-    String UNDERLINE = "\u001b[4m";
     String WHITE_BOLD = "\033[1;97m";
 
 
@@ -19,14 +18,16 @@ public class UserInterface {
 
 
     int returnsUserInputInt() {
+        while(!in.hasNextInt()){
+            System.out.print("Error, enter number: ");
+            in.next();
+        }
         int userInput = in.nextInt();
         in.nextLine();
         return userInput;
     }
     String returnsUserInputString() {
-
         String userInput = in.nextLine();
-
         return userInput;
     }
 
@@ -97,6 +98,10 @@ public class UserInterface {
 
     void nameNotFound(){
         System.out.println("Name not found");
+    }
+
+    void orderListEmpty(){
+        System.out.println(BOLD + "No orders yet");
     }
 }
 

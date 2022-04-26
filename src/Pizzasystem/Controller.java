@@ -22,25 +22,24 @@ public class Controller {
     }
 
     boolean options() {
-        orderList();
-        ui.printOptions();
-        String input = ui.returnsUserInputString();
-        input.trim();
 
+        ui.printOptions();
+        int input = ui.returnsUserInputInt();
 
         switch (input) {
-            case "1":
+            case 1:
                 newOrder();
                 break;
-            case "2":
+            case 2:
                 deleteOrder();
                 break;
-            case "3":
+            case 3:
                 return false;
             default:
                 ui.answerNotValid();
                 break;
         }
+        orderList(); 
         return true;
     }
 
@@ -86,7 +85,7 @@ public class Controller {
 
     ArrayList<Pizza> takeOrder() {
 
-        ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Oprettede et nyt array, da vi gerne vil have individuelle pizza-array for hver kunde
+        ArrayList<Pizza> currentPizzaOrder = new ArrayList<>(); //Nyt pizza-array for hver kunde
 
         boolean askForPizza = true;
         String input;
@@ -98,8 +97,7 @@ public class Controller {
 
             addCustomerPizzaOrders(pizzaNum, currentPizzaOrder);  //Metoden modtager det tomme array, og tilføjer pizzaer til det
 
-            //Ny loop for at fejltjekke svaret til moreThanOnePizza()
-            //TODO loop skal nok laves om, da det er dårlig kode
+            //Ny loop for fejlhåndtering
             boolean morePizza = false;
             while (!morePizza) {
                 ui.moreThanOnePizza();
@@ -110,24 +108,22 @@ public class Controller {
                         morePizza = true;
                         break;
                     case "no", "n":
-                        morePizza = true; //Hvorfor fungere det ikke uden den her
-                        askForPizza = false;
-                        break;
+                        return currentPizzaOrder;
                 }
             }
         }
         return currentPizzaOrder; //Returnere kundens pizza-array
     }
 
-    void createOrder(ArrayList<Pizza> pizzaPutInOrder, String pickUpTime, String costumerNum, String costumerName) {
-        Order order = new Order(pickUpTime, pizzaPutInOrder, costumerNum, costumerName);
+    void createOrder(ArrayList<Pizza> pizzaPutInOrder, String pickUpTime, String customerNum, String ccustomerName) {
+        Order order = new Order(pickUpTime, pizzaPutInOrder, customerNum, ccustomerName);
         pizzaOrderList.add(order);
     }
 
     void addCustomerPizzaOrders(int pizzaNum, ArrayList<Pizza> currentPizzaOrder) {
 
         //Finder pizzaerne ved at bruge Pizzanummeret og tilføjer dem til en pizza liste
-        for (Pizza pizza : pizzaList) { //for each pizza in pizzaList
+        for (Pizza pizza : pizzaList) {
             if (pizzaNum == pizza.getNumber()) {
                 currentPizzaOrder.add(pizza);
             }
@@ -135,23 +131,24 @@ public class Controller {
     }
 
     void deleteOrder() {
-        orderList();
-        ui.deleteOrder();
-        String name = ui.returnsUserInputString();
-        removeCustomerPizzaOrders(name);
+        if (pizzaOrderList.size() == 0)
+            ui.orderListEmpty();
+        else {
+            orderList();
+            ui.deleteOrder();
+            String name = ui.returnsUserInputString();
+            removeCustomerPizzaOrders(name);
+        }
     }
 
     void removeCustomerPizzaOrders(String customerName) {
 
-
         for (int i = 0; i < pizzaOrderList.size(); i++) {
             if (customerName.equals(pizzaOrderList.get(i).getCustomerName())) {
                 pizzaOrderList.remove(i);
-                i=-2; //to break out of loop
-            }
-            else if(i ==pizzaOrderList.size()-1)
+                i = pizzaOrderList.size(); //to break out of loop
+            } else if (i == pizzaOrderList.size() - 1)
                 ui.nameNotFound();
-
 
         }
     }
