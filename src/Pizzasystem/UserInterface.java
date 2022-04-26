@@ -63,7 +63,7 @@ public class UserInterface {
     }
 
     void customerPickUpTime(){
-        System.out.print(BOLD+"\nCUSTOMER INFO"+RESET+"\nPick up time:");
+        System.out.print(BOLD+"\nCUSTOMER INFO"+RESET+"\nPick up time (time/'now'):");
 
     }
     void customerName(){
